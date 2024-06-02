@@ -35,6 +35,23 @@
 ## Frameworks de Caja Negra
 
 - Basados en la composición.
+- Este framework de caja negra le permite mostrar texto en la pantalla.
+- Versión 1:
+    - Para usarlo, Usted debe:
+        - Implementar la interfaz `Text`.
+        - Crear una instancia de `Start` y pase su implementación de `Text` como parámetro del constructor, así:
+          `Start frw = new Start(new MiImplementacionDeText());`
+        - Finalmente, invoque al metodo init():
+          `frw.init();`
+- Versión 2: usando un archivo de configuración:
+    - Para usarlo, Usted debe:
+        - Implementar la interfaz `Text`.
+        - Genere un archivo `.properties` con la estructura:
+          `clase = paquete.clase`
+        - Instancie la clase `Screen` y como parámetro de constructor pase el path al archivo properties, así:
+          `Start frw = new Start("path/al/archivo");`
+        - Finalmente, invoque al metodo init():
+          `frw.init();`
 
 ## Ejemplos de Frameworks Web: Spring y Javalin
 
