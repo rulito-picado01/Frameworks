@@ -1,6 +1,6 @@
-package usuario;
+package whitebox.usuario;
 
-import framework.Start;
+import whitebox.framework.Start;
 
 public class Main {
     public static void main(String[] args) {
