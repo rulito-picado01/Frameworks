@@ -1,0 +1,115 @@
+{
+  "name": "demo_frameworks",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -60,
+        -60
+      ],
+      "id": "bae5d1f1-f8a1-4a21-a3de-08e2cd6cef33",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://jsonplaceholder.typicode.com/posts",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        160,
+        -60
+      ],
+      "id": "cc034297-c0a6-4e4a-a2fe-833c32390354",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "const summary = items.slice(0, 5).map(item => {\n  const post = item.json;\n  return `• (${post.id}) ${post.title}`;\n}).join('\\n');\n\nreturn [{\n  json: {\n    summary,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        380,
+        -60
+      ],
+      "id": "5f9f7531-6a1f-4b8f-954c-bf7f772637c0",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "fromEmail": "enrique.molinari@gmail.com",
+        "toEmail": "enrique.molinari@gmail.com",
+        "subject": "Post summary",
+        "emailFormat": "text",
+        "text": "={{ $json.summary }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        600,
+        -60
+      ],
+      "id": "3205dca0-94db-4b83-b198-6bd27cd4c687",
+      "name": "Send Email",
+      "webhookId": "26bb4e9c-42ea-45bf-b38e-cd9c672f355c",
+      "credentials": {
+        "smtp": {
+          "id": "Nub2yLUCpUjEZqN7",
+          "name": "MailTrap"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8ea2b779-b192-4d1a-a24c-455a1ca0cf13",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8f34a52887bb6f1855180ef1e9d22a779ddf990a852bc317fc2596f181008d16"
+  },
+  "id": "nNHI0GdZ32hPEBmY",
+  "tags": []
+}
