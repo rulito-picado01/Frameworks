@@ -81,7 +81,7 @@
 - Para usarlo, Ud. debe:
     - Crear una instancia de `Workflow` pasando por constructor una lista de nodos:
       ```java
-      var workflow = Workflow.createFrom(...);
+      var workflow = Workflow.createFrom(/* List de Nodos */);
       workflow.run(Params.empty());
       ```
     - Existen dos nodos provistos por el framework `HttpRequest` y `EmailSender`.
