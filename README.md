@@ -66,3 +66,26 @@
 - Javalin:
     - Por el contrario, Javalin requiere que las clases que son controllers implementen la interfaz `Handler` y luego
       dichas instancias se las damos al framework a travez de la clase `Javalin`.
+    -
+
+## n8n: Un Application Framework
+
+- n8n es un application framework que permite crear workflows.
+- ¿Por qué es un application framework?
+    - Porque no esta incompleto, viene con una serie de nodos predefinidos.
+    - Porque permite crear mis propios nodos (Nodo Code) para extender su funcionalidad.
+
+## Implementación de un Mini n8n
+
+- Este framework (de caja negra) le permite realizar una tarea compleja combinando múltiples tareas simples.
+- Para usarlo, Ud. debe:
+    - Crear una instancia de `Workflow` pasando por constructor una lista de nodos:
+      ```java
+      var workflow = Workflow.createFrom(...);
+      workflow.run(Params.empty());
+      ```
+    - Existen dos nodos provistos por el framework `HttpRequest` y `EmailSender`.
+    - Si se desea crear un nodo propio, se debe implementar la interfaz `CodeNode`.
+  
+ 
+
