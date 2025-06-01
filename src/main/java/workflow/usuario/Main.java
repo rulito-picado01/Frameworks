@@ -14,6 +14,7 @@ public class Main {
                 "https://jsonplaceholder.typicode.com/posts",
                 PostSummaryJsonParser.INPUT_JSON_KEY);
         var jsonParser = new PostSummaryJsonParser(EmailSender.BODY_KEY);
+        //cambiar las credenciales por tu cuenta de mailtrap
         var emailSender = new EmailSender("Send Summary",
                 new Crendenciales("3bf1ab1307588e", "fad0caf3d7c56d"));
         var workflow = Workflow.createFrom(List.of(httpRequest, jsonParser, emailSender));

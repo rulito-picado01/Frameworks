@@ -79,6 +79,7 @@
     - `docker compose up -d`
     - Navegar a: `http://localhost:5678/`
     - Click en "demo_frameworks"
+    - Modificar las credenciales del nodo Email Sender por las tuyas de Mailtrap.
 
 ## Implementación de un Mini n8n
 
