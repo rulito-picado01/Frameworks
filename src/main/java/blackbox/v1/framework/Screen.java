@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public final class Screen {
 
-    Text text;
+    private Text text;
 
     public Screen(Text text) {
         this.text = text;

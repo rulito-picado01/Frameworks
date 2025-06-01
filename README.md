@@ -74,6 +74,11 @@
 - ¿Por qué es un application framework?
     - Porque no esta incompleto, viene con una serie de nodos predefinidos.
     - Porque permite crear mis propios nodos (Nodo Code) para extender su funcionalidad.
+- Para iniciarlo:
+    - `cd n8ndocke r`
+    - `docker compose up -d`
+    - Navegar a: `http://localhost:5678/`
+    - Click en "demo_frameworks"
 
 ## Implementación de un Mini n8n
 

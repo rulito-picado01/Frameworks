@@ -37,3 +37,4 @@ build/
 ### Mac OS ###
 .DS_Store
 /app.log
+/n8ndocker/n8n_local/n8nEventLog-1.log
