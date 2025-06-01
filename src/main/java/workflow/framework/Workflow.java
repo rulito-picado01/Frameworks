@@ -20,24 +20,36 @@ public class Workflow {
     }
 
     public void run(Params params) {
-        var start = System.currentTimeMillis();
-        logger.info("Iniciando la ejecución del workflow con " + nodes.size() + " nodos.");
         try {
             for (Node node : nodes) {
-                var startNode = System.currentTimeMillis();
                 nodeName = node.name();
-                logger.info("Empezando a ejecutar el nodo: " + nodeName);
                 node.execute(params);
-                var endNode = System.currentTimeMillis();
-                logger.info("Nodo " + nodeName + " ejecutado en " + toSeconds(endNode, startNode) + " segundos.");
             }
-            var end = System.currentTimeMillis();
-            logger.info("Workflow ejecutado con éxito en " + toSeconds(end, start) + " segundos.");
         } catch (Exception e) {
-            logger.severe("Error en nodo: " + nodeName);
-            logger.severe("Error durante la ejecución del workflow: " + e.getMessage());
+            throw new RuntimeException("Error en nodo " + nodeName + " durante la ejecución del workflow", e);
         }
     }
+
+//    public void run(Params params) {
+//        var start = System.currentTimeMillis();
+//        logger.info("Iniciando la ejecución del workflow con " + nodes.size() + " nodos.");
+//        try {
+//            for (Node node : nodes) {
+//                var startNode = System.currentTimeMillis();
+//                nodeName = node.name();
+//                logger.info("Empezando a ejecutar el nodo: " + nodeName);
+//                node.execute(params);
+//                var endNode = System.currentTimeMillis();
+//                logger.info("Nodo " + nodeName + " ejecutado en " + toSeconds(endNode, startNode) + " segundos.");
+//            }
+//            var end = System.currentTimeMillis();
+//            logger.info("Workflow ejecutado con éxito en " + toSeconds(end, start) + " segundos.");
+//        } catch (Exception e) {
+//            logger.severe("Error en nodo: " + nodeName);
+//            logger.severe("Error durante la ejecución del workflow: " + e.getMessage());
+//            throw new RuntimeException("Error durante la ejecución del workflow", e);
+//        }
+//    }
 
     private long toSeconds(long endNode, long startNode) {
         return (endNode - startNode) / 1000;
@@ -45,7 +57,6 @@ public class Workflow {
 
     private void setUpLogger() {
         try {
-            // Crear FileHandler que escribe en "app.log", con modo append (true)
             FileHandler fileHandler = new FileHandler("app.log", true);
             fileHandler.setFormatter(new Formatter() {
                 @Override
@@ -53,11 +64,8 @@ public class Workflow {
                     return String.format("[%s] %s%n", record.getLevel(), record.getMessage());
                 }
             });
-            // Agregar el handler al logger
             logger.addHandler(fileHandler);
-            // Opcional: desactivar logs en consola (System.err)
             logger.setUseParentHandlers(false);
-            // Opcional: establecer nivel de log
             logger.setLevel(Level.ALL);
             fileHandler.setLevel(Level.ALL);
         } catch (Exception e) {
