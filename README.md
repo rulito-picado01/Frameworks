@@ -75,7 +75,7 @@
     - Porque no esta incompleto, viene con una serie de nodos predefinidos.
     - Porque permite crear mis propios nodos (Nodo Code) para extender su funcionalidad.
 - Para iniciarlo:
-    - `cd n8ndocke r`
+    - `cd n8ndocker`
     - `docker compose up -d`
     - Navegar a: `http://localhost:5678/`
     - Click en "demo_frameworks"
