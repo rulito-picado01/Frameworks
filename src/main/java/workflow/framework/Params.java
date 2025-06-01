@@ -5,13 +5,9 @@ import java.util.Map;
 
 public class Params {
     private Map<String, Object> data = new HashMap<>();
-
-    public Params(Map<String, Object> initialData) {
-        this.data.putAll(initialData);
-    }
-
+    
     public static Params empty() {
-        return new Params(new HashMap<>());
+        return new Params();
     }
 
     public void set(String key, Object value) {
