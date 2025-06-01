@@ -81,7 +81,9 @@
 - Para usarlo, Ud. debe:
     - Crear una instancia de `Workflow` pasando por constructor una lista de nodos:
       ```java
+      // Crea una instancia de Workflow inicializada.
       var workflow = Workflow.createFrom(/* Lista de Nodos */);
+      // Ejecuta cada nodo en el orden en que fueron agregados a la lista.
       workflow.run(Params.empty());
       ```
     - Existen dos nodos provistos por el framework `HttpRequest` y `EmailSender`.
