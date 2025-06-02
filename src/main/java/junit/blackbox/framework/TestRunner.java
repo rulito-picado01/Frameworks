@@ -16,8 +16,8 @@ public class TestRunner {
         testMethods = new ArrayList<>();
     }
 
-    public void runTests(Class<?>... testClasses) {
-        for (Class<?> clazz : testClasses) {
+    public void runTests(Class[] testClasses) {
+        for (Class clazz : testClasses) {
             var instance = createInstanceOf(clazz);
             distributeMethodsIntoLists(clazz);
             for (Method testMethod : testMethods) {

@@ -34,23 +34,42 @@
     - Por el contrario, Javalin requiere que las clases que son controllers implementen la interfaz `Handler` y luego
       dichas instancias se las damos al framework a travez de la clase `Javalin`.
 
-## Frameworks de Caja Blanca
+## Implementación: De Caja Blanca vs Caja Negra
 
-- Basados en la herencia y en el patrón de diseño Template Method.
+- Caja Blanca: Basados en la herencia y en el patrón de diseño Template Method.
+- Caja Negra: Basados en la composición.
 
 ### Mostrar Texto en Pantalla
 
-- Este framework (de caja blanca) le permite mostrar texto en la pantalla.
-- Para usarlo, Ud. debe:
+- Este framework le permite mostrar texto en la pantalla.
+- Implementado como Caja Blanca: para usarlo, Ud. debe:
     - Extender de la case: `Screen`, e implementar su método abstracto.
     - Luego crea una instancia de `Start` pasando por constructor la implementacion de la subclase de `Screen`, asi:
       ```java
       Start s = new Start(new MyApplication());
       s.init();
       ```
+- Implementado como Caja Negra
+- Versión 1:
+    - Para usarlo, Usted debe:
+        - Implementar la interfaz `Text`.
+        - Crear una instancia de `Start` y pase su implementación de `Text` como parámetro del constructor, así:
+          `Start frw = new Start(new MiImplementacionDeText());`
+        - Finalmente, invoque al metodo init():
+          `frw.init();`
+- Versión 2: usando un archivo de configuración:
+    - Para usarlo, Usted debe:
+        - Implementar la interfaz `Text`.
+        - Genere un archivo `.properties` con la estructura:
+          `clase = paquete.clase`
+        - Instancie la clase `Screen` y como parámetro de constructor pase el path al archivo properties, así:
+          `Start frw = new Start("path/al/archivo");`
+        - Finalmente, invoque al metodo init():
+          `frw.init();`
 
 ### JUnit: Una pequeña implementación ilustrativa
 
+- Implementado como **Caja Blanca** (versiones viejas de JUnit)
 - Dos versiones, v1: un método test por clase. v2: varios métodos tests por clase.
     - **v1**: Para crear tests unitarios, Ud. debe:
         - Extender de la clase `TestCase` y sobreescribir el método `runTest()`.
@@ -70,29 +89,29 @@
             - retorna `void`.
             - no recibe parámetros.
             - su nombre comienza con `test`.
-        - Ademas puede sobreescribir los métodos `before()` y `after()` para realizar tareas de inicialización y clean
-          up.
-
-## Frameworks de Caja Negra
-
-- Basados en la composición.
-- Este framework de caja negra le permite mostrar texto en la pantalla.
-- Versión 1:
-    - Para usarlo, Usted debe:
-        - Implementar la interfaz `Text`.
-        - Crear una instancia de `Start` y pase su implementación de `Text` como parámetro del constructor, así:
-          `Start frw = new Start(new MiImplementacionDeText());`
-        - Finalmente, invoque al metodo init():
-          `frw.init();`
-- Versión 2: usando un archivo de configuración:
-    - Para usarlo, Usted debe:
-        - Implementar la interfaz `Text`.
-        - Genere un archivo `.properties` con la estructura:
-          `clase = paquete.clase`
-        - Instancie la clase `Screen` y como parámetro de constructor pase el path al archivo properties, así:
-          `Start frw = new Start("path/al/archivo");`
-        - Finalmente, invoque al metodo init():
-          `frw.init();`
+        - Ademas puede sobreescribir los métodos `before()` y `after()` para realizar tareas de inicialización y
+          clean up.
+            - Luego, utilizar `TestRunner.executeAll` pasando por parémetro una lista de subclases de `TestCase`,
+              así:
+              ```java
+              var tests = new TestCase[]{
+                new TestUnoYDos()
+              };
+              TestRunner.executeAll(tests);
+              ```
+- Implementado como **Caja Negra** (version 5 de JUnit)
+    - Para crear tests unitarios, Ud. debe:
+        - En una clase especifica, Ud debe anotar con `@TestInstance` cada uno de los métodos de test.
+        - Ademas puede anotar con `@Before()` y `@After()` para realizar tareas de inicialización y
+          clean up.
+        - Luego, utilizar `new TestRunner().runTest(tests)` pasando por parémetro una lista de clases que contienen los
+          tests así:
+          ```java
+            var tests = new Class[]{
+               TestUnoYDos.class
+            };
+            new TestRunner().runTests(tests);
+          ```
 
 ## n8n: Un Application Framework
 
