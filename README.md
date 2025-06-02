@@ -20,9 +20,26 @@
       usuario del framework. Además, son las clases del framework las que inician la aplicacion.
 - Los frameworks al ser mas complejos que las librerias requieren de muy buena documentación.
 
+## Ejemplos de Frameworks Web: Spring y Javalin
+
+- Observemos que en ambos son las clases del framework las que inician la aplicación.
+- Transforman una petición `http` en una invocación a un método del usuario del framework.
+    - `http://{HOST}:{PORT}/action?param1=valor1`
+- Spring:
+    - Tiene parte de su configuracion en un archivo de propiedades
+    - Sus hooks/extension points son basados fuertemente en annotations.
+    - Debo anotar con `@RestController` y otras anotaciones para crear controllers.
+    - Spring descubre as anotaciones, instancia las clases y las pone a disposición de las clases del framework.
+- Javalin:
+    - Por el contrario, Javalin requiere que las clases que son controllers implementen la interfaz `Handler` y luego
+      dichas instancias se las damos al framework a travez de la clase `Javalin`.
+
 ## Frameworks de Caja Blanca
 
 - Basados en la herencia y en el patrón de diseño Template Method.
+
+### Mostrar Texto en Pantalla
+
 - Este framework (de caja blanca) le permite mostrar texto en la pantalla.
 - Para usarlo, Ud. debe:
     - Extender de la case: `Screen`, e implementar su método abstracto.
@@ -31,6 +48,30 @@
       Start s = new Start(new MyApplication());
       s.init();
       ```
+
+### JUnit: Una pequeña implementación ilustrativa
+
+- Dos versiones, v1: un método test por clase. v2: varios métodos tests por clase.
+    - **v1**: Para crear tests unitarios, Ud. debe:
+        - Extender de la clase `TestCase` y sobreescribir el método `runTest()`.
+        - Ademas puede sobreescribir los métodos `before()` y `after()` para realizar tareas de inicialización y clean
+          up.
+        - Luego, utilizar `TestRunner.executeAll` pasando por parémetro una lista de subclases de `TestCase`, así:
+          ```java
+            var tests = new TestCase[]{
+                new TestUno(),
+                new TestDos()
+            };
+            TestRunner.executeAll(tests);
+          ```
+    - **v2**: Para crear tests unitarios, Ud. debe:
+        - Extender de la clase `TestCase` y escribir cada método test con las siguientes características:
+            - `public`.
+            - retorna `void`.
+            - no recibe parámetros.
+            - su nombre comienza con `test`.
+        - Ademas puede sobreescribir los métodos `before()` y `after()` para realizar tareas de inicialización y clean
+          up.
 
 ## Frameworks de Caja Negra
 
@@ -52,21 +93,6 @@
           `Start frw = new Start("path/al/archivo");`
         - Finalmente, invoque al metodo init():
           `frw.init();`
-
-## Ejemplos de Frameworks Web: Spring y Javalin
-
-- Observemos que en ambos son las clases del framework las que inician la aplicación.
-- Transforman una petición `http` en una invocación a un método del usuario del framework.
-    - `http://{HOST}:{PORT}/action?param1=valor1`
-- Spring:
-    - Tiene parte de su configuracion en un archivo de propiedades
-    - Sus hooks/extension points son basados fuertemente en annotations.
-    - Debo anotar con `@RestController` y otras anotaciones para crear controllers.
-    - Spring descubre as anotaciones, instancia las clases y las pone a disposición de las clases del framework.
-- Javalin:
-    - Por el contrario, Javalin requiere que las clases que son controllers implementen la interfaz `Handler` y luego
-      dichas instancias se las damos al framework a travez de la clase `Javalin`.
-    -
 
 ## n8n: Un Application Framework
 
