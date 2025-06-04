@@ -15,6 +15,8 @@ public class JsonController implements Handler {
                 , "id", "1"
                 , "title", "sunt aut facere repellat provident occaecati excepturi optio reprehenderit"
                 , "body", "quia et suscipitnsuscipit recusandae consequuntur expedita et cumnreprehenderit molestiae ut ut quas totamnnostrum rerum est autem sunt rem eveniet architecto");
+
+        //throw new RuntimeException("no puede generar json");
         context.json(List.of(map));
     }
 }
