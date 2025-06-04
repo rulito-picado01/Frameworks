@@ -37,7 +37,7 @@
 ## Implementación: De Caja Blanca vs Caja Negra
 
 - Caja Blanca: Basados en la herencia y en el patrón de diseño Template Method.
-- Caja Negra: Basados en la composición.
+- Caja Negra: Basados en la composición o descubrimiento (anotaciones, reflection).
 
 ### Mostrar Texto en Pantalla
 
@@ -101,10 +101,10 @@
               ```
 - Implementado como **Caja Negra** (version 5 de JUnit)
     - Para crear tests unitarios, Ud. debe:
-        - En una clase especifica, Ud debe anotar con `@TestInstance` cada uno de los métodos de test.
+        - En una clase especifica, Ud debe anotar con `@TestUnitario` cada uno de los métodos de test.
         - Ademas puede anotar con `@Before()` y `@After()` para realizar tareas de inicialización y
           clean up.
-        - Luego, utilizar `new TestRunner().runTest(tests)` pasando por parémetro una lista de clases que contienen los
+        - Luego, utilizar `new TestRunner().runTest(tests)` pasando por parámetro una lista de clases que contienen los
           tests así:
           ```java
             var tests = new Class[]{
